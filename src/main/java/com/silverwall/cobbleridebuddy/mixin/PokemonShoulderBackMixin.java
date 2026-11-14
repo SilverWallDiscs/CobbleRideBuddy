@@ -23,7 +23,7 @@ public abstract class PokemonShoulderBackMixin {
     private static final String CROBAT_RENDER_METHOD =
         "render(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/world/entity/player/Player;FFFFFFZ)V";
 
-    @Inject(method = CROBAT_RENDER_METHOD, at = @At("HEAD"))
+    @Inject(method = CROBAT_RENDER_METHOD, at = @At("HEAD"), require = 0)
     private void cobbleridebuddy$captureShoulderPokemon(
         PoseStack matrices,
         MultiBufferSource buffer,
@@ -53,19 +53,18 @@ public abstract class PokemonShoulderBackMixin {
             value = "INVOKE",
             target = "Lcom/mojang/blaze3d/vertex/PoseStack;translate(DDD)V",
             ordinal = 0
-        )
+        ),
+        require = 0
     )
     private void cobbleridebuddy$centerCrobatOnBack(PoseStack matrices, double x, double y, double z) {
         if (cobbleridebuddy$renderingCrobat.get()) {
-            // The shoulder renderer already translates crouching Pokémon 0.15
-            // blocks forward, so compensate to keep Crobat centered on the back.
             matrices.translate(0.0, y, cobbleridebuddy$renderingCrouched.get() ? -0.08 : -0.23);
         } else {
             matrices.translate(x, y, z);
         }
     }
 
-    @Inject(method = CROBAT_RENDER_METHOD, at = @At("RETURN"))
+    @Inject(method = CROBAT_RENDER_METHOD, at = @At("RETURN"), require = 0)
     private void cobbleridebuddy$clearShoulderContext(
         PoseStack matrices,
         MultiBufferSource buffer,
