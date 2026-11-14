@@ -1,0 +1,9 @@
+{
+  "cobbleridebuddy.ui.attach": "Llevar en la espalda",
+  "cobbleridebuddy.key.release": "Soltar Pokémon volador",
+  "cobbleridebuddy.category": "CobbleRideBuddy",
+  "message.cobbleridebuddy.attached": "Crobat se acomoda en tu espalda. Busca una altura y emprende el vuelo.",
+  "message.cobbleridebuddy.detached": "Crobat ha vuelto al suelo.",
+  "message.cobbleridebuddy.invalid": "Ese Pokémon no puede convertirse en tu compañero volador.",
+  "message.cobbleridebuddy.already_attached": "Ya tienes un Pokémon sujeto a la espalda."
+}
