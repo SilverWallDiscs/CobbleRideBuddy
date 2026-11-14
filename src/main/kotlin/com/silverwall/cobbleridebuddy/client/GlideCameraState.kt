@@ -1,8 +1,9 @@
 package com.silverwall.cobbleridebuddy.client
 
-import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
+import com.cobblemon.mod.common.util.DataKeys
 import net.minecraft.client.CameraType
 import net.minecraft.client.Minecraft
+import net.minecraft.nbt.CompoundTag
 
 object GlideCameraState {
     private var previousCameraType: CameraType? = null
@@ -12,9 +13,8 @@ object GlideCameraState {
 
     fun tick(client: Minecraft) {
         val player = client.player
-        val hasCrobatBuddy = player?.passengers?.any { passenger ->
-            passenger is PokemonEntity &&
-                passenger.pokemon.species.resourceIdentifier.toString() == "cobblemon:crobat"
+        val hasCrobatBuddy = player?.let {
+            isCrobatShoulder(it.shoulderEntityLeft) || isCrobatShoulder(it.shoulderEntityRight)
         } == true
         val shouldUseCinematicCamera = hasCrobatBuddy && player?.isFallFlying == true
 
@@ -30,6 +30,9 @@ object GlideCameraState {
         val targetBlend = if (active) 1.0f else 0.0f
         fovBlend += (targetBlend - fovBlend) * 0.14f
     }
+
+    private fun isCrobatShoulder(tag: CompoundTag): Boolean =
+        tag.getString(DataKeys.SHOULDER_SPECIES) == "cobblemon:crobat"
 
     @JvmStatic
     fun cinematicFovMultiplier(): Double = 1.0 + 0.065 * fovBlend.toDouble()
