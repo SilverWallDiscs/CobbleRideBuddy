@@ -8,7 +8,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value = FormData.class, remap = false)
 public abstract class FormDataShoulderMixin {
-    @Inject(method = "getShoulderMountable", at = @At("RETURN"), cancellable = true, remap = false)
+    @Inject(
+        method = "getShoulderMountable",
+        at = @At("RETURN"),
+        cancellable = true,
+        remap = false,
+        require = 0
+    )
     private void cobbleridebuddy$allowCrobatShoulderMount(CallbackInfoReturnable<Boolean> cir) {
         FormData form = (FormData) (Object) this;
         if ("cobblemon:crobat".equals(form.getSpecies().getResourceIdentifier().toString())) {
