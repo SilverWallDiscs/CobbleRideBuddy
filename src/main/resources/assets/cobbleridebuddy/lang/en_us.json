@@ -1,0 +1,9 @@
+{
+  "cobbleridebuddy.ui.attach": "Attach to Back",
+  "cobbleridebuddy.key.release": "Release flying buddy",
+  "cobbleridebuddy.category": "CobbleRideBuddy",
+  "message.cobbleridebuddy.attached": "Crobat settles onto your back. Find a ledge and take flight!",
+  "message.cobbleridebuddy.detached": "Crobat is back on its feet.",
+  "message.cobbleridebuddy.invalid": "That Pokémon cannot become your flying buddy.",
+  "message.cobbleridebuddy.already_attached": "You already have a Pokémon attached to your back."
+}
