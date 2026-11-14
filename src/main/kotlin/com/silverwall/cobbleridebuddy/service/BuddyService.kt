@@ -33,6 +33,8 @@ object BuddyService {
             pokemon.ownerUUID != player.uuid ||
             !pokemon.isAlive ||
             pokemon.isBattling ||
+            pokemon.isPassenger ||
+            pokemon.passengers.isNotEmpty() ||
             pokemon.distanceToSqr(player) > MAX_INTERACTION_DISTANCE_SQUARED ||
             player.isPassenger ||
             player.passengers.isNotEmpty()
@@ -56,7 +58,7 @@ object BuddyService {
     fun tickWorld(world: ServerLevel) {
         for (player in world.players()) {
             val buddy = findBuddy(player) ?: continue
-            if (!buddy.isAlive || buddy.level() != player.level()) {
+            if (!buddy.isAlive || buddy.level() != player.level() || player.health <= 0.0f) {
                 release(player)
                 continue
             }
@@ -70,9 +72,12 @@ object BuddyService {
             buddy.setInvulnerable(true)
             buddy.deltaMovement = Vec3.ZERO
 
-            if (!player.onGround() &&
+            // Keep water entry safe. In the air, activate vanilla's Elytra-style
+            // travel physics even though this player does not need an Elytra item.
+            if (player.isInWaterOrBubble) {
+                if (player.isFallFlying) player.stopFallFlying()
+            } else if (!player.onGround() &&
                 player.deltaMovement.y < -0.035 &&
-                !player.isInWaterOrBubble &&
                 !player.isFallFlying
             ) {
                 player.startFallFlying()
@@ -81,14 +86,13 @@ object BuddyService {
     }
 
     fun release(player: ServerPlayer, notifyPlayer: Boolean = true) {
-        val buddy = findBuddy(player)
-        if (buddy != null) {
-            buddy.stopRiding()
-            restorePokemon(buddy)
-            buddy.teleportTo(player.x, player.y + 0.05, player.z)
-        }
+        val buddy = findBuddy(player) ?: return
+        buddy.stopRiding()
+        restorePokemon(buddy)
+        buddy.teleportTo(player.x, player.y + 0.05, player.z)
+
         if (player.isFallFlying) player.stopFallFlying()
-        if (notifyPlayer && buddy != null) {
+        if (notifyPlayer) {
             player.sendSystemMessage(Component.translatable("message.cobbleridebuddy.detached"))
         }
     }
