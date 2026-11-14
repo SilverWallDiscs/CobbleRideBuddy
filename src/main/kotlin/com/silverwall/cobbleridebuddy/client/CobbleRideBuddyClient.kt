@@ -20,10 +20,10 @@ object CobbleRideBuddyClient : ClientModInitializer {
     override fun onInitializeClient() {
         releaseBuddyKey = KeyBindingHelper.registerKeyBinding(
             KeyMapping(
-                "cobbleridebuddy.key.release",
+                "key.cobbleridebuddy.release",
                 InputConstants.Type.KEYSYM,
                 GLFW.GLFW_KEY_H,
-                "cobbleridebuddy.category"
+                "key.category.cobbleridebuddy"
             )
         )
 
