@@ -1,9 +1,14 @@
 {
-  "cobbleridebuddy.ui.attach": "Attach to Back",
-  "key.cobbleridebuddy.release": "Release flying buddy",
+  "cobbleridebuddy.skill.ride_buddy": "Ride Buddy Skill",
+  "key.cobbleridebuddy.open_skills": "Open Companion Skills",
   "key.category.cobbleridebuddy": "CobbleRideBuddy",
-  "message.cobbleridebuddy.attached": "Crobat settles onto your back. Find a ledge and take flight!",
-  "message.cobbleridebuddy.detached": "Crobat is back on its feet.",
-  "message.cobbleridebuddy.invalid": "That Pokémon cannot become your flying buddy.",
-  "message.cobbleridebuddy.already_attached": "You already have a Pokémon attached to your back."
+  "screen.cobbleridebuddy.skills": "Companion Skills",
+  "screen.cobbleridebuddy.ride_buddy.release": "Release Crobat",
+  "screen.cobbleridebuddy.status.active": "Crobat is with you · Power: %1$s / %2$s",
+  "screen.cobbleridebuddy.status.inactive": "No Ride Buddy is attached",
+  "screen.cobbleridebuddy.help": "Shift + right-click your Crobat to activate Ride Buddy Skill",
+  "hud.cobbleridebuddy.power": "Ride Buddy Power: %1$s / %2$s",
+  "message.cobbleridebuddy.skill_unknown": "That companion skill is not registered.",
+  "message.cobbleridebuddy.skill_not_active": "Ride Buddy Skill is not active.",
+  "message.cobbleridebuddy.skill_unavailable": "Ride Buddy Skill cannot be used right now."
 }
