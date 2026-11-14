@@ -11,7 +11,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Entity.class)
 public abstract class EntityPositionRiderMixin {
-    @Inject(method = "positionRider", at = @At("TAIL"))
+    @Inject(
+        method = "positionRider(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/entity/Entity$MoveFunction;)V",
+        at = @At("TAIL")
+    )
     private void cobbleridebuddy$positionCrobatOnBack(Entity passenger, Entity.MoveFunction positionUpdater, CallbackInfo ci) {
         if (!((Object) this instanceof Player player) || !(passenger instanceof PokemonEntity pokemon)) {
             return;
