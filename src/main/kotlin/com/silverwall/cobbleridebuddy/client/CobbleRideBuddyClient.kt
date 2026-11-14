@@ -22,6 +22,7 @@ import org.lwjgl.glfw.GLFW
 object CobbleRideBuddyClient : ClientModInitializer {
     private lateinit var openSkillsKey: KeyMapping
     private var lastForwardHeld = false
+    private var lastJumpHeld = false
     private var controlTicks = 0
 
     override fun onInitializeClient() {
@@ -88,7 +89,12 @@ object CobbleRideBuddyClient : ClientModInitializer {
                 }
 
                 val forwardHeld = client.options.keyUp.isDown
-                val startGliding = client.options.keyJump.consumeClick()
+                // Observe SPACE as a key state edge instead of consuming the
+                // vanilla jump mapping's click queue. This lets normal jumping
+                // keep working while a fresh airborne press starts the glide.
+                val jumpHeld = client.options.keyJump.isDown
+                val startGliding = jumpHeld && !lastJumpHeld
+
                 if (startGliding ||
                     forwardHeld != lastForwardHeld ||
                     (forwardHeld && controlTicks % 4 == 0)
@@ -96,9 +102,14 @@ object CobbleRideBuddyClient : ClientModInitializer {
                     ClientPlayNetworking.send(BuddyControlPayload(startGliding, forwardHeld))
                 }
                 lastForwardHeld = forwardHeld
+                lastJumpHeld = jumpHeld
                 controlTicks++
             } else {
+                if (lastForwardHeld && client.player != null) {
+                    ClientPlayNetworking.send(BuddyControlPayload(false, false))
+                }
                 lastForwardHeld = false
+                lastJumpHeld = false
             }
 
             GlideCameraState.tick(client)
