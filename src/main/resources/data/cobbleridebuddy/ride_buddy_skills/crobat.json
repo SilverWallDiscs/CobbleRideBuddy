@@ -1,0 +1,9 @@
+{
+  "pokemon": "cobblemon:crobat",
+  "skill": "cobbleridebuddy:ride_buddy",
+  "maxPower": 10.0,
+  "powerGainPerTick": 0.04,
+  "powerDecayPerTick": 0.02,
+  "thrustPerPower": 0.00012,
+  "maxHorizontalSpeed": 2.2
+}
