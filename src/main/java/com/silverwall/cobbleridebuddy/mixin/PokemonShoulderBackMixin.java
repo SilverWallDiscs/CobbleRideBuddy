@@ -52,7 +52,7 @@ public abstract class PokemonShoulderBackMixin {
         at = @At(
             value = "INVOKE",
             target = "Lcom/mojang/blaze3d/vertex/PoseStack;translate(DDD)V",
-            ordinal = 1
+            ordinal = 0
         )
     )
     private void cobbleridebuddy$centerCrobatOnBack(PoseStack matrices, double x, double y, double z) {
